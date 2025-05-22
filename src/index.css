@@ -85,6 +85,35 @@
   }
 }
 
+/* Hero Slideshow Styles */
+.hero-slideshow {
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide {
+  height: 100%;
+  width: 100%;
+}
+
+.text-gold {
+  color: #FF9900;
+}
+
+.bg-gold {
+  background-color: #FF9900;
+}
+
+.bg-navy {
+  background-color: #002244;
+}
+
+.text-navy {
+  color: #002244;
+}
+
+/* Other existing styles */
 .hero-section {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1581090700227-4c4c262f789b');
   background-size: cover;
