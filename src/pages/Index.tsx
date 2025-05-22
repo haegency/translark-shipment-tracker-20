@@ -16,7 +16,8 @@ const slides = [
     subtitle: "Challenges",
     description: "Explore how Translark Logistics provides innovative solutions to overcome complexities in international shipping and trade.",
     buttonText: "Explore More",
-    buttonLink: "#services"
+    buttonLink: "#services",
+    image: "https://images.unsplash.com/photo-1581090700227-4c4c262f789b?q=80&w=1920"
   },
   {
     id: 2,
@@ -24,7 +25,8 @@ const slides = [
     subtitle: "Local Precision",
     description: "Reliable air, ocean, and road shipping solutions delivered with excellence.",
     buttonText: "Track Your Shipment",
-    buttonLink: "/track"
+    buttonLink: "/track",
+    image: "https://images.unsplash.com/photo-1577417006860-4bd96f4a3be0?q=80&w=1920"
   },
   {
     id: 3,
@@ -32,19 +34,44 @@ const slides = [
     subtitle: "Worldwide Reach",
     description: "Your trusted partner for international cargo transport and custom logistics solutions.",
     buttonText: "Our Services",
-    buttonLink: "#services"
+    buttonLink: "#services",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1920"
   }
 ];
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideExchangeIndex, setSlideExchangeIndex] = useState(0);
+  const [servicesExchangeIndex, setServicesExchangeIndex] = useState(0);
+  const [testimonialsExchangeIndex, setTestimonialsExchangeIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    // Hero slideshow timer
+    const heroTimer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
     }, 7000);
     
-    return () => clearInterval(timer);
+    // Service cards exchange timer
+    const servicesTimer = setInterval(() => {
+      setSlideExchangeIndex(prev => (prev + 1) % 2);
+    }, 10000);
+    
+    // What we do exchange timer
+    const whatWeDoTimer = setInterval(() => {
+      setServicesExchangeIndex(prev => (prev + 1) % 3);
+    }, 6000);
+    
+    // Testimonials exchange timer
+    const testimonialsTimer = setInterval(() => {
+      setTestimonialsExchangeIndex(prev => (prev + 1) % 3);
+    }, 8000);
+    
+    return () => {
+      clearInterval(heroTimer);
+      clearInterval(servicesTimer);
+      clearInterval(whatWeDoTimer);
+      clearInterval(testimonialsTimer);
+    };
   }, []);
 
   const nextSlide = () => {
@@ -55,18 +82,83 @@ const Index = () => {
     setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
   };
 
+  // Define services cards
+  const serviceCards = [
+    {
+      title: "AIR TRANSPORT",
+      description: "Efficient Air Transport Solutions",
+      buttonColor: "bg-navy hover:bg-navy/90",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=1200",
+      iconImage: "https://images.unsplash.com/photo-1551811855-febe2754c34c?q=80&w=400"
+    },
+    {
+      title: "ROAD TRANSPORT",
+      description: "Seamless Road Transport Solutions",
+      buttonColor: "bg-red-600 hover:bg-red-700",
+      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1200",
+      iconImage: "https://images.unsplash.com/photo-1600500528030-bf45a6f8050d?q=80&w=400"
+    }
+  ];
+
+  // Define what we do cards
+  const whatWeDoCards = [
+    {
+      title: "Service & Aftermarket Logistics",
+      description: "Specialized logistics solutions for service parts and aftermarket supply chains, ensuring rapid delivery and minimal downtime.",
+      image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600",
+      highlighted: false
+    },
+    {
+      title: "Industry-Specific Competence",
+      description: "Tailored logistics solutions for specialized industries including pharmaceuticals, automotive, retail, and manufacturing.",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600",
+      highlighted: true
+    },
+    {
+      title: "E-commerce Logistics Solutions",
+      description: "End-to-end logistics solutions for e-commerce businesses, from warehousing to last-mile delivery, optimized for speed and customer satisfaction.",
+      image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?q=80&w=600",
+      highlighted: false
+    }
+  ];
+
+  // Define testimonial cards
+  const testimonialCards = [
+    {
+      quote: "Exceptional service! Translark Partners has consistently exceeded our expectations with their reliability, efficiency, and attention to detail. Their dedication to punctuality ensures our shipments always arrive on time.",
+      author: "John Smith",
+      position: "Business Owner",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400",
+      highlighted: false
+    },
+    {
+      quote: "Outstanding experience! Translark Partners's road transport solutions have significantly improved our supply chain efficiency. Their commitment to reliability and punctuality has helped us meet tight deadlines.",
+      author: "Emily Johnson",
+      position: "Operations Manager",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400",
+      highlighted: true
+    },
+    {
+      quote: "Absolutely impressed! Translark Partners provided us with exceptional air transport services that helped us meet tight deadlines and deliver goods to our customers on time.",
+      author: "Michael Brown",
+      position: "Supply Chain Manager",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400",
+      highlighted: false
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
       {/* Hero Section with Slideshow */}
-      <div className="hero-slideshow relative">
+      <div className="hero-slideshow relative slanted-bottom">
         {slides.map((slide, index) => (
           <div 
             key={slide.id}
             className={`hero-slide absolute w-full h-full transition-opacity duration-1000 ease-in-out ${currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1581090700227-4c4c262f789b?q=80&w=1920')`,
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${slide.image}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
@@ -135,14 +227,17 @@ const Index = () => {
             </form>
           </div>
         </div>
+        
+        {/* Fade gradient */}
+        <div className="fade-gradient"></div>
       </div>
 
-      {/* Highlights Section */}
+      {/* Highlights Section with Animated Icons */}
       <div className="bg-white py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 p-8 bg-red-600 text-white flex flex-col items-center text-center">
-              <div className="rounded-full bg-white/20 p-4 mb-4">
+              <div className="rounded-full bg-white/20 p-4 mb-4 floating-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8">
                   <path d="M12 2v4"/>
                   <path d="m18.364 7.05-2.828 2.828"/>
@@ -159,7 +254,7 @@ const Index = () => {
               <p className="text-xl font-medium">Certificate Forwarders</p>
             </div>
             <div className="w-full md:w-1/2 p-8 bg-red-600 text-white flex flex-col items-center text-center">
-              <div className="rounded-full bg-white/20 p-4 mb-4">
+              <div className="rounded-full bg-white/20 p-4 mb-4 floating-icon" style={{ animationDelay: "1.5s" }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
@@ -175,7 +270,7 @@ const Index = () => {
       <div id="about" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 fade-in stagger-1">
               <img 
                 src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=1200" 
                 alt="Warehouse Worker" 
@@ -192,7 +287,7 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 fade-in stagger-2">
               <h3 className="text-red-600 font-medium mb-2">Welcome To Translark Partners</h3>
               <h2 className="text-4xl font-bold mb-6 text-navy">Providing Full Range of Transportation Worldwide</h2>
               <p className="text-gray-700 mb-6">
@@ -216,7 +311,7 @@ const Index = () => {
                     description: "We embrace innovation and leverage the latest technologies to optimize processes, enhance visibility, and drive continuous improvement."
                   }
                 ].map((item, index) => (
-                  <div key={index} className="flex items-start">
+                  <div key={index} className="flex items-start fade-in" style={{ animationDelay: `${0.3 + index * 0.2}s` }}>
                     <Check className="text-red-600 mt-1 mr-2 flex-shrink-0" />
                     <p>
                       <span className="font-semibold">{item.title}</span> {item.description}
@@ -235,7 +330,7 @@ const Index = () => {
         </div>
       </div>
       
-      {/* Services Section */}
+      {/* Services Section with Animating Cards */}
       <div id="services" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -244,67 +339,46 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            {/* Air Transport Card */}
-            <Card className="overflow-hidden">
-              <div className="flex flex-col h-full">
-                <div className="p-6 flex flex-col">
-                  <h3 className="text-2xl font-bold mb-2 text-navy">AIR TRANSPORT</h3>
-                  <p className="text-gray-600 mb-6">Efficient Air Transport Solutions</p>
-                  <div className="mt-auto">
-                    <Button className="bg-navy hover:bg-navy/90 text-white">
-                      Explore More <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+            {/* Dynamic Service Cards */}
+            {serviceCards.map((card, index) => (
+              <Card 
+                key={card.title} 
+                className={`overflow-hidden transition-all duration-500 ${
+                  index === 0 ? 
+                    (slideExchangeIndex === 0 ? 'slide-exchange-left' : 'slide-exchange-right') : 
+                    (slideExchangeIndex === 0 ? 'slide-exchange-right' : 'slide-exchange-left')
+                }`}
+                style={{ animationDelay: `${index * 0.5}s` }}
+              >
+                <div className="flex flex-col h-full">
+                  <div className="p-6 flex flex-col">
+                    <h3 className="text-2xl font-bold mb-2 text-navy">{card.title}</h3>
+                    <p className="text-gray-600 mb-6">{card.description}</p>
+                    <div className="mt-auto">
+                      <Button className={card.buttonColor + " text-white"}>
+                        Explore More <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <div className="h-60 relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=1200" 
-                    alt="Air Transport" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute -top-5 -right-5 h-40 w-40 rounded-full border-4 border-gray-100 overflow-hidden">
-                    <div className="w-full h-full bg-red-100 flex items-center justify-center">
-                      <img
-                        src="https://images.unsplash.com/photo-1551811855-febe2754c34c?q=80&w=400"
-                        alt="Airplane Icon"
-                        className="w-32 h-32 object-contain"
-                      />
+                  <div className="h-60 relative">
+                    <img 
+                      src={card.image}
+                      alt={card.title} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute -top-5 -right-5 h-40 w-40 rounded-full border-4 border-gray-100 overflow-hidden floating-icon" style={{ animationDelay: `${1 + index}s` }}>
+                      <div className="w-full h-full bg-red-100 flex items-center justify-center">
+                        <img
+                          src={card.iconImage}
+                          alt={`${card.title} Icon`}
+                          className="w-32 h-32 object-contain"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Card>
-            
-            {/* Road Transport Card */}
-            <Card className="overflow-hidden">
-              <div className="flex flex-col h-full">
-                <div className="p-6 flex flex-col">
-                  <h3 className="text-2xl font-bold mb-2 text-navy">ROAD TRANSPORT</h3>
-                  <p className="text-gray-600 mb-6">Seamless Road Transport Solutions</p>
-                  <div className="mt-auto">
-                    <Button className="bg-red-600 hover:bg-red-700 text-white">
-                      Explore More <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="h-60 relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=1200" 
-                    alt="Road Transport" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute -top-5 -right-5 h-40 w-40 rounded-full border-4 border-gray-100 overflow-hidden">
-                    <div className="w-full h-full bg-red-100 flex items-center justify-center">
-                      <img
-                        src="https://images.unsplash.com/photo-1600500528030-bf45a6f8050d?q=80&w=400"
-                        alt="Truck Icon"
-                        className="w-32 h-32 object-contain"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
+              </Card>
+            ))}
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -327,7 +401,7 @@ const Index = () => {
         </div>
       </div>
 
-      {/* What We Do Section */}
+      {/* What We Do Section with Animating Cards */}
       <div className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -336,65 +410,36 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Service Card 1 */}
-            <Card className="overflow-hidden">
-              <div className="h-56 relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600" 
-                  alt="Service & Aftermarket Logistics" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 p-2 bg-navy text-white rounded-tr-md">
-                  <Truck className="h-5 w-5" />
+            {/* Dynamic What We Do Cards */}
+            {whatWeDoCards.map((card, index) => (
+              <Card 
+                key={card.title}
+                className={`overflow-hidden transition-all duration-500 ${
+                  index === servicesExchangeIndex ? 'scale-105 shadow-xl z-10' : 'scale-100'
+                } ${
+                  card.highlighted ? 'bg-red-600 text-white' : ''
+                }`}
+              >
+                <div className="h-56 relative">
+                  <img 
+                    src={card.image}
+                    alt={card.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className={`absolute bottom-0 left-0 p-2 ${card.highlighted ? 'bg-white text-navy' : 'bg-navy text-white'} rounded-tr-md`}>
+                    <Truck className="h-5 w-5" />
+                  </div>
                 </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-navy">Service & Aftermarket Logistics</h3>
-                <p className="text-gray-700 mb-4">
-                  Specialized logistics solutions for service parts and aftermarket supply chains, ensuring rapid delivery and minimal downtime.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Service Card 2 */}
-            <Card className="overflow-hidden bg-red-600 text-white">
-              <div className="h-56 relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600" 
-                  alt="Industry-Specific Competence" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 p-2 bg-white text-navy rounded-tr-md">
-                  <Truck className="h-5 w-5" />
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Industry-Specific Competence</h3>
-                <p className="mb-4">
-                  Tailored logistics solutions for specialized industries including pharmaceuticals, automotive, retail, and manufacturing.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Service Card 3 */}
-            <Card className="overflow-hidden">
-              <div className="h-56 relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?q=80&w=600" 
-                  alt="E-commerce Logistics Solutions" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 p-2 bg-navy text-white rounded-tr-md">
-                  <Truck className="h-5 w-5" />
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-navy">E-commerce Logistics Solutions</h3>
-                <p className="text-gray-700 mb-4">
-                  End-to-end logistics solutions for e-commerce businesses, from warehousing to last-mile delivery, optimized for speed and customer satisfaction.
-                </p>
-              </CardContent>
-            </Card>
+                <CardContent className="p-6">
+                  <h3 className={`text-xl font-bold mb-2 ${card.highlighted ? 'text-white' : 'text-navy'}`}>
+                    {card.title}
+                  </h3>
+                  <p className={card.highlighted ? 'mb-4' : 'text-gray-700 mb-4'}>
+                    {card.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
           
           <div className="text-center mt-10">
@@ -407,7 +452,7 @@ const Index = () => {
         </div>
       </div>
       
-      {/* Testimonials Section */}
+      {/* Testimonials Section with Animating Cards */}
       <div className="py-16 bg-gray-50 border-t border-gray-200">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -419,62 +464,36 @@ const Index = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 h-full">
-              <div className="flex justify-center mb-4">
-                <div className="text-4xl text-red-600">"</div>
-              </div>
-              <p className="text-gray-700 mb-4 text-center">
-                "Exceptional service! Translark Partners has consistently exceeded our expectations with their reliability, 
-                efficiency, and attention to detail. Their dedication to punctuality ensures our shipments always arrive on time."
-              </p>
-              <div className="flex items-center justify-center mt-auto pt-4 border-t">
-                <div className="w-12 h-12 rounded-full overflow-hidden mr-3">
-                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400" alt="John Smith" className="w-full h-full object-cover" />
+            {testimonialCards.map((card, index) => (
+              <Card 
+                key={index} 
+                className={`p-6 h-full transition-all duration-500 ${
+                  index === testimonialsExchangeIndex ? 'scale-105 shadow-xl z-10' : 'scale-100'
+                } ${
+                  card.highlighted ? 'bg-red-600 text-white' : ''
+                }`}
+              >
+                <div className="flex justify-center mb-4">
+                  <div className={`text-4xl ${card.highlighted ? 'text-white' : 'text-red-600'}`}>"</div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-navy">John Smith</h4>
-                  <p className="text-sm text-gray-600">Business Owner</p>
+                <p className={`${card.highlighted ? '' : 'text-gray-700'} mb-4 text-center`}>
+                  {card.quote}
+                </p>
+                <div className={`flex items-center justify-center mt-auto pt-4 border-t ${card.highlighted ? 'border-red-400' : ''}`}>
+                  <div className="w-12 h-12 rounded-full overflow-hidden mr-3">
+                    <img 
+                      src={card.image} 
+                      alt={card.author} 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                  <div>
+                    <h4 className={`font-bold ${card.highlighted ? '' : 'text-navy'}`}>{card.author}</h4>
+                    <p className={`text-sm ${card.highlighted ? 'text-red-200' : 'text-gray-600'}`}>{card.position}</p>
+                  </div>
                 </div>
-              </div>
-            </Card>
-            
-            <Card className="p-6 bg-red-600 text-white h-full">
-              <div className="flex justify-center mb-4">
-                <div className="text-4xl text-white">"</div>
-              </div>
-              <p className="mb-4 text-center">
-                "Outstanding experience! Translark Partners's road transport solutions have significantly improved our supply chain efficiency. 
-                Their commitment to reliability and punctuality has helped us meet tight deadlines."
-              </p>
-              <div className="flex items-center justify-center mt-auto pt-4 border-t border-red-400">
-                <div className="w-12 h-12 rounded-full overflow-hidden mr-3">
-                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400" alt="Emily Johnson" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <h4 className="font-bold">Emily Johnson</h4>
-                  <p className="text-sm text-red-200">Operations Manager</p>
-                </div>
-              </div>
-            </Card>
-            
-            <Card className="p-6 h-full">
-              <div className="flex justify-center mb-4">
-                <div className="text-4xl text-red-600">"</div>
-              </div>
-              <p className="text-gray-700 mb-4 text-center">
-                "Absolutely impressed! Translark Partners provided us with exceptional air transport services that helped us meet tight deadlines 
-                and deliver goods to our customers on time."
-              </p>
-              <div className="flex items-center justify-center mt-auto pt-4 border-t">
-                <div className="w-12 h-12 rounded-full overflow-hidden mr-3">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400" alt="Michael Brown" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-navy">Michael Brown</h4>
-                  <p className="text-sm text-gray-600">Supply Chain Manager</p>
-                </div>
-              </div>
-            </Card>
+              </Card>
+            ))}
           </div>
         </div>
       </div>

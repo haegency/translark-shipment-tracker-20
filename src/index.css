@@ -87,7 +87,7 @@
 
 /* Hero Slideshow Styles */
 .hero-slideshow {
-  height: 600px;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 }
@@ -95,6 +95,73 @@
 .hero-slide {
   height: 100%;
   width: 100%;
+}
+
+/* Slanted bottom for slideshow */
+.slanted-bottom {
+  position: relative;
+}
+
+.slanted-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom right, transparent 50%, #ffffff 50%);
+  z-index: 1;
+}
+
+/* Fade gradient for slideshow */
+.fade-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+  z-index: 1;
+}
+
+/* Moving icons animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Service cards exchange animation */
+@keyframes slide-left {
+  0% { transform: translateX(0); opacity: 1; }
+  40% { transform: translateX(-10%); opacity: 0; }
+  60% { transform: translateX(10%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-right {
+  0% { transform: translateX(0); opacity: 1; }
+  40% { transform: translateX(10%); opacity: 0; }
+  60% { transform: translateX(-10%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.slide-exchange-left {
+  animation: slide-left 10s infinite;
+}
+
+.slide-exchange-right {
+  animation: slide-right 10s infinite;
 }
 
 .text-gold {
@@ -150,3 +217,26 @@
 .timeline-end {
   @apply absolute left-0 bottom-1 w-6 h-6 rounded-full bg-gold;
 }
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Staggered animations timing */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
