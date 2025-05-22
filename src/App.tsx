@@ -5,6 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
 import Track from "./pages/Track";
 import Result from "./pages/Result";
 import Admin from "./pages/Admin";
@@ -20,6 +23,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/track" element={<Track />} />
           <Route path="/result/:trackingCode" element={<Result />} />
           <Route path="/admin-translark-0927" element={<Admin />} />
